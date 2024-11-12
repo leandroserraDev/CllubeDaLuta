@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de E-mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 90%; /* Reduz o tamanho no mobile */
+            width: 100%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 1.5em; /* Tamanho menor para mobile */
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1em; /* Fonte adaptável */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px; /* Ajuste do padding para mobile */
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .button:hover {
+                background-color: #45a049;
+            }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        /* Ajuste das imagens para caberem na largura do container */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Media query para telas menores */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                box-shadow: none; /* Remove sombra para simplificar no mobile */
+            }
+
+            h1 {
+                font-size: 1.2em; /* Ajuste adicional */
+            }
+
+            .button {
+                padding: 10px 15px; /* Botão menor para mobile */
+            }
+
+            .footer {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="data:image/png;charset=utf-8;base64, {{logo}}" alt="Logo" />
+        <h1>Confirmação de E-mail Realizada!</h1>
+        <p>Olá,</p>
+        <p>Seu endereço de e-mail foi validado com sucesso. Agora, você pode aproveitar todos os recursos que oferecemos.</p>
+        <p>Se você tiver qualquer dúvida, entre em contato conosco.</p>
+        <a href="#" class="button">Acessar Minha Conta</a>
+        <div class="footer">
+            <p>Obrigado por escolher nossos serviços.</p>
+            <p>© 2023 Sua Empresa. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>

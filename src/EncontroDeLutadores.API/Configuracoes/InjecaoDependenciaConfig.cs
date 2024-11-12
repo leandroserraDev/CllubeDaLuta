@@ -9,7 +9,8 @@ namespace EncontroDeLutadores.API.Configuracoes
         public static IServiceCollection InjecaoDepenciaConfiguracao(this IServiceCollection services)
         {
             services.AddScoped<INotificacaoErrorServico, NotificacaoErrorServico>();
-      
+
+
             return services;
         }
     }

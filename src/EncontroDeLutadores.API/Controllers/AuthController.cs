@@ -1,11 +1,15 @@
 ﻿using EncontroDeLutadores.API.JWT;
 using EncontroDeLutadores.Aplicacao.DTOs.Identity;
 using EncontroDeLutadores.Dominio.Entidades.usuario;
+using EncontroDeLutadores.Dominio.Interfaces.Servicos.email.Base;
 using EncontroDeLutadores.Dominio.Interfaces.Servicos.Notificacao;
+using EncontroDeLutadores.Servico.Servicos.Email.Base;
+using EncontroDeLutadores.Servico.Servicos.Email.ConfirmacaoEmail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace EncontroDeLutadores.API.Controllers
 {
@@ -16,15 +20,18 @@ namespace EncontroDeLutadores.API.Controllers
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly INotificacaoErrorServico _notificacaoErrorServico;
-
-        public AuthController(SignInManager<Usuario> signInManager, 
-            UserManager<Usuario> userManager, 
-            INotificacaoErrorServico notificacaoErrorServico)
-            :base(notificacaoErrorServico)
+        private readonly IConfiguration _configuration;
+        public AuthController(SignInManager<Usuario> signInManager,
+            UserManager<Usuario> userManager,
+            INotificacaoErrorServico notificacaoErrorServico
+,
+            IConfiguration configuration)
+            : base(notificacaoErrorServico)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _notificacaoErrorServico = notificacaoErrorServico;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -36,16 +43,12 @@ namespace EncontroDeLutadores.API.Controllers
             {
                 if (result.IsLockedOut)
                 {
-                    _notificacaoErrorServico.AddNotificacao("Usuário bloqueado");
-
-                }else if (result.IsNotAllowed)
-                {
-                    _notificacaoErrorServico.AddNotificacao("Usuário não confirmado, por favor confirme o e-mail");
+                    _notificacaoErrorServico.AddNotificacao("Usuário bloqueado.");
 
                 }
                 else
                 {
-                    _notificacaoErrorServico.AddNotificacao("Usuário ou senha inválida");
+                    _notificacaoErrorServico.AddNotificacao("Usuário ou senha inválida.");
 
                 }
 
@@ -66,11 +69,10 @@ namespace EncontroDeLutadores.API.Controllers
             }
 
 
-            var token = await GerarTokenJWT.GerarToken(user);
+            var token = GerarTokenJWT.GerarToken(user);
             return await CustomResponse(token);
 
         }
-
 
 
     }
