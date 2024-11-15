@@ -1,4 +1,5 @@
 using EncontroDeLutadores.API.Configuracoes;
+using EncontroDeLutadores.Infra.RabbitMQ.Consumers.Implementacao;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.EntityFrameworkConfiguracao();
 builder.Services.IdentityConfiguracao();
 builder.Services.InjecaoDepenciaConfiguracao();
+builder.Services.MongoDBConfiguration();
+
+builder.Services.AddHostedService<EmailConsumerCadastroUsuario>();
 
 var app = builder.Build();
 

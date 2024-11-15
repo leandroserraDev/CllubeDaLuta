@@ -1,4 +1,5 @@
 ﻿using EncontroDeLutadores.Dominio.Entidades.objetoValor;
+using EncontroDeLutadores.Dominio.Entidades.perfilLutador;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace EncontroDeLutadores.Dominio.Entidades.usuario
         public virtual ICollection<ApplicationUserClaim> Claims { get; set; }
         public virtual ICollection<ApplicationUserLogin> Logins { get; set; }
         public virtual ICollection<ApplicationUserToken> Tokens { get; set; }
-        public  ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public  virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
 
-
+        public virtual PerfilLutador PerfilLutador { get; set; }
 
     }
 

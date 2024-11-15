@@ -3,6 +3,8 @@ using EncontroDeLutadores.Aplicacao.DTOs.Identity;
 using EncontroDeLutadores.Aplicacao.DTOs.Identity.confirmarEmail;
 using EncontroDeLutadores.Dominio.Entidades.usuario;
 using EncontroDeLutadores.Dominio.Interfaces.Servicos.Notificacao;
+using EncontroDeLutadores.Infra.RabbitMQ.Entidades;
+using EncontroDeLutadores.Infra.RabbitMQ.Producers.Interfaces.Email.CadastroUsuario;
 using EncontroDeLutadores.Servico.Servicos.Email.ConfirmacaoEmail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -37,7 +39,7 @@ namespace EncontroDeLutadores.API.Controllers
         /// <param name="usuarioCriadoDTO"></param>
         /// <returns></returns>
         [HttpPost("lutador")]
-        public async Task<IActionResult> Criar(UsuarioCriacaoDTO usuarioCriadoDTO)
+        public async Task<IActionResult> Criar([FromServices]IEmailProducerCadastroUsuario emailProducerCadastroUsuario,  UsuarioCriacaoDTO usuarioCriadoDTO)
         {
 
 
@@ -68,9 +70,11 @@ namespace EncontroDeLutadores.API.Controllers
             }
             var tokenEncode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenEmail));
 
+            ////
+            var producerEmailCadastrar = new BodyEmailProducerConsumerCreateUser(user.Email, "Confirmar E-email", tokenEncode);
+            await emailProducerCadastroUsuario.SendProducer(producerEmailCadastrar);
 
-            new ServicoEmailTemplateConfirmacao(user.Id, tokenEncode, _configuration)
-            .SendEmail(user.Email);
+
 
             return await CustomResponse();
         }
