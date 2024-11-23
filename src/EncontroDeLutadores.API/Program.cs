@@ -16,7 +16,7 @@ builder.Services.MongoDBConfiguration();
 
 builder.Services.AddHostedService<EmailConsumerCadastroUsuario>();
 
-var app = builder.Build(); 
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
