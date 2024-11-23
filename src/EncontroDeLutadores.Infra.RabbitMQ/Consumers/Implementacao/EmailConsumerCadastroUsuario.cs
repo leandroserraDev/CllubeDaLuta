@@ -31,7 +31,7 @@ namespace EncontroDeLutadores.Infra.RabbitMQ.Consumers.Implementacao
             _factory.UserName = "guest";
             _factory.Password = "guest";
             _factory.VirtualHost = "/";
-            _factory.HostName = "host.docker.internal";
+            _factory.HostName = "localhost"; //"host.docker.internal";
             this.configuration = configuration;
         }
 
@@ -40,34 +40,34 @@ namespace EncontroDeLutadores.Infra.RabbitMQ.Consumers.Implementacao
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
 
-            var _connection = _factory.CreateConnection();
+            //var _connection = _factory.CreateConnection();
 
 
-            var channel = _connection.CreateModel();
+            //var channel = _connection.CreateModel();
 
-            channel.QueueDeclare(EQueueEmail.Cadastro.ToString(), false, false, true, null);
+            //channel.QueueDeclare(EQueueEmail.Cadastro.ToString(), false, false, true, null);
 
-            Consumer(channel);
+            //Consumer(channel);
 
             return Task.FromResult(true);
-        
-    }
+
+        }
 
         private void Consumer(IModel channel)
         {
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += Consumer_Received;
-        channel.BasicConsume(EQueueEmail.Cadastro.ToString(), true, consumer);
+            channel.BasicConsume(EQueueEmail.Cadastro.ToString(), true, consumer);
         }
 
         private void Consumer_Received(object? sender, BasicDeliverEventArgs e)
         {
             var body = JsonSerializer.Deserialize<BodyEmailProducerConsumerCreateUser>(Encoding.UTF8.GetString(e.Body.ToArray()));
-        var serviceEmailTemplate = new ServicoEmailTemplateConfirmacao(body.UserID, body.Token, configuration);
+            var serviceEmailTemplate = new ServicoEmailTemplateConfirmacao(body.UserID, body.Token, configuration);
             serviceEmailTemplate.SendEmail(body.To);
 
-        Encoding.UTF8.GetString(e.Body.ToArray());
-     
+            Encoding.UTF8.GetString(e.Body.ToArray());
+
         }
     }
 }
