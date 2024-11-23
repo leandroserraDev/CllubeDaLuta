@@ -31,7 +31,7 @@ namespace EncontroDeLutadores.Infra.RabbitMQ.Consumers.Implementacao
             _factory.UserName = "guest";
             _factory.Password = "guest";
             _factory.VirtualHost = "/";
-            _factory.HostName = "localhost";
+            _factory.HostName = "host.docker.internal";
             this.configuration = configuration;
         }
 
