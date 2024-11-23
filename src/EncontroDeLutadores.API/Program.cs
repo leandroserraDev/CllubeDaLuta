@@ -16,19 +16,24 @@ builder.Services.MongoDBConfiguration();
 
 builder.Services.AddHostedService<EmailConsumerCadastroUsuario>();
 
-var app = builder.Build(); 
+var app = builder.Build();
 
 // Configure the HTTP request pipeline. 
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(options => options.WithOrigins().AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseCors(options => options.WithOrigins()
+                              .AllowAnyOrigin()
+                              .AllowAnyHeader()
+                              .AllowAnyMethod());
+
+
 app.MapControllers();
 
 app.Run();
