@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncontroDeLutadores.Aplicac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncontroDeLutadores.Servico", "src\EncontroDeLutadores.Servico\EncontroDeLutadores.Servico.csproj", "{F275B853-860A-41B6-AE6E-76EBC2EB3842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncontroDeLutadores.Infra.RabbitMQ", "src\EncontroDeLutadores.Infra.RabbitMQ\EncontroDeLutadores.Infra.RabbitMQ.csproj", "{9B318D75-354B-40B3-AA1F-EA8E3DF1E0B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncontroDeLutadores.Infra.RabbitMQ", "src\EncontroDeLutadores.Infra.RabbitMQ\EncontroDeLutadores.Infra.RabbitMQ.csproj", "{9B318D75-354B-40B3-AA1F-EA8E3DF1E0B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Testes", "0 - Testes", "{096FDA0D-E714-46C6-9109-4416E48403B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncontroDeLutadores.Testes.API.Integracao", "src\EncontroDeLutadores.Testes.API.Integracao\EncontroDeLutadores.Testes.API.Integracao.csproj", "{11B37403-12F5-4A9D-A365-9618E28747D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{9B318D75-354B-40B3-AA1F-EA8E3DF1E0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B318D75-354B-40B3-AA1F-EA8E3DF1E0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B318D75-354B-40B3-AA1F-EA8E3DF1E0B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B37403-12F5-4A9D-A365-9618E28747D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B37403-12F5-4A9D-A365-9618E28747D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B37403-12F5-4A9D-A365-9618E28747D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B37403-12F5-4A9D-A365-9618E28747D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{417EB879-CC3D-42B4-9410-41E6905F2236} = {20BF5386-368C-478D-9C63-5C8A8B6A20C7}
 		{F275B853-860A-41B6-AE6E-76EBC2EB3842} = {E653B08A-C7B0-49B2-96E7-0EB2BD91A987}
 		{9B318D75-354B-40B3-AA1F-EA8E3DF1E0B6} = {3FDAE18B-1029-443D-BA4C-C2B988F6A635}
+		{11B37403-12F5-4A9D-A365-9618E28747D5} = {096FDA0D-E714-46C6-9109-4416E48403B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A046C33-37B9-42BB-B097-BCE4E993BC24}
