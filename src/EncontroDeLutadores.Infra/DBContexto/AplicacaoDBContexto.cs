@@ -26,8 +26,12 @@ namespace EncontroDeLutadores.Infra.DBContexto
         {
             base.OnModelCreating(builder);
 
+      
             builder.Entity<Usuario>(b =>
             {
+
+                b.Ignore(obj => obj.PerfilLutador);
+
                 // Each User can have many UserClaims
                 b.HasMany(e => e.Claims)
                     .WithOne(e => e.User)
