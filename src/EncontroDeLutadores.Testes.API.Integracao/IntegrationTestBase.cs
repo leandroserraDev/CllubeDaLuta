@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace EncontroDeLutadores.Testes.API.Integracao
                     {
                         options.UseInMemoryDatabase("TestDb");
                     });
+                    var dbContext = services.BuildServiceProvider().GetService<AplicacaoDBContexto>();
+                    dbContext.Database.Migrate();
 
                     // Outras dependências podem ser mockadas aqui, se necessário
                 });

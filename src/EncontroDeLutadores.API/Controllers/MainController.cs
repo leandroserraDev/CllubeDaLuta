@@ -1,4 +1,5 @@
-﻿using EncontroDeLutadores.Dominio.Interfaces.Servicos.Notificacao;
+﻿using EncontroDeLutadores.API.Response;
+using EncontroDeLutadores.Dominio.Interfaces.Servicos.Notificacao;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,19 +21,11 @@ namespace EncontroDeLutadores.API.Controllers
 
             if (!await _notificationErrorService.TemNotificacao())
             {
-                return Ok(new
-                {
-                    success = true,
-                    data = result
-                });
+                return Ok(new CustomResponse(true, result, null));
             }
 
             return BadRequest(new
-            {
-                success = false,
-                data = result,
-                errors = await _notificationErrorService.Notificacoes()
-            });
+             CustomResponse(false, result, (_notificationErrorService.Notificacoes().Result)));
         }
 
     }

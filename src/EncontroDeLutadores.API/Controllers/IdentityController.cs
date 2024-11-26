@@ -76,7 +76,7 @@ namespace EncontroDeLutadores.API.Controllers
 
 
 
-            return await CustomResponse();
+            return await CustomResponse(new {nome= user.Nome, sobrenome = user.Sobrenome, email =  user.Email});
         }
 
         /// <summary>

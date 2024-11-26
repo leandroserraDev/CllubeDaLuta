@@ -26,7 +26,16 @@ namespace EncontroDeLutadores.Infra.RabbitMQ.Producers.Implementacao.Email
             factory.VirtualHost = "/";
             factory.HostName = "localhost";
 
-            _connection = factory.CreateConnection();
+            try
+            {
+                _connection = factory.CreateConnection();
+
+            }
+            catch(Exception e)
+            {
+                
+            }
+
             _eQueueEmail = eQueueEmail;
 
         }
