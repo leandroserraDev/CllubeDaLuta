@@ -1,0 +1,41 @@
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches:
+      - build_vm_docker_image
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Fazer checkout do código
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Configurar o .NET Core SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x' # Altere para a versão do seu projeto
+
+      # 3. Restaurar dependências
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      # 4. Construir a aplicação
+      - name: Build App
+        run: dotnet build --configuration Release
+
+      # 5. Publicar a aplicação
+      - name: Publish App
+        run: dotnet publish -c Release -o publish_output
+
+      # 6. Deploy para o App Service
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "SeuNomeAppService" # Substitua pelo nome do App Service no Azure
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: ./publish_output
