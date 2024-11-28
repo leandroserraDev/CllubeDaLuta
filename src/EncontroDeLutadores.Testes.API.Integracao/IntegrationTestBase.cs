@@ -22,7 +22,7 @@ namespace EncontroDeLutadores.Testes.API.Integracao
         public IntegrationTestBase(GenericAPIFactory genericApiFactory)
         {
             _genericApiFactory = genericApiFactory;
-            _client = _genericApiFactory.CreateClient();
+            _client = _genericApiFactory.CreateClient(); 
         }
 
 
