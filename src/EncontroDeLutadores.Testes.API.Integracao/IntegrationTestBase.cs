@@ -1,5 +1,6 @@
 ﻿using EncontroDeLutadores.Infra.DBContexto;
 using EncontroDeLutadores.Testes.API.Integracao.Configuracoes;
+using EncontroDeLutadores.Testes.API.Integracao.Factor;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -13,38 +14,19 @@ using System.Threading.Tasks;
 
 namespace EncontroDeLutadores.Testes.API.Integracao
 {
-     public class IntegrationTestBase : IClassFixture<WebApplicationFactory<Program>>
+     public class IntegrationTestBase : IClassFixture<GenericAPIFactory>
     {
+        private readonly GenericAPIFactory _genericApiFactory;
         protected readonly HttpClient _client;
-        protected readonly WebApplicationFactory<Program> _factory;
 
-        public IntegrationTestBase(WebApplicationFactory<Program> factory)
+        public IntegrationTestBase(GenericAPIFactory genericApiFactory)
         {
-            // Configura o WebApplicationFactory para usar um banco de dados em memória
-            _factory = factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    // Substitui o contexto de banco de dados com um banco de dados em memória
-                    var descriptor = services.SingleOrDefault(
-                        d => d.ServiceType == typeof(DbContextOptions<AplicacaoDBContexto>));
-
-                    if (descriptor != null)
-                        services.Remove(descriptor);
-
-                    services.AddDbContext<AplicacaoDBContexto>(options =>
-                    {
-                        options.UseInMemoryDatabase("TestDb");
-                    });
-                    var dbContext = services.BuildServiceProvider().GetService<AplicacaoDBContexto>();
-                    dbContext.Database.Migrate();
-
-                    // Outras dependências podem ser mockadas aqui, se necessário
-                });
-            });
-
-            _client = _factory.CreateClient();
+            _genericApiFactory = genericApiFactory;
+            _client = _genericApiFactory.CreateClient();
         }
+
+
+
     }
 
 }

@@ -12,22 +12,17 @@ using EncontroDeLutadores.Testes.API.Integracao.Factor;
 
 namespace EncontroDeLutadores.Testes.API.Integracao.Identity
 {
-    public class IdentityTests : IClassFixture<GenericAPIFactory>
+    public class IdentityTests : IntegrationTestBase
     {
-        private readonly GenericAPIFactory _genericApiFactory;
-        private readonly HttpClient _client;
-
-        public IdentityTests(GenericAPIFactory genericApiFactory)
+        public IdentityTests(GenericAPIFactory genericApiFactory) : base(genericApiFactory)
         {
-            _genericApiFactory = genericApiFactory;
-            _client = _genericApiFactory.CreateClient();
         }
 
         [Fact]
         public async Task Create_User_With_Valid()
         {
             // Arrange: Dados de um usuário válido
-             var loginRequest = new
+            var loginRequest = new
             {
                 nome = "Leandro",
                 sobrenome = "Serra",
@@ -41,19 +36,16 @@ namespace EncontroDeLutadores.Testes.API.Integracao.Identity
             // Assert: Verifica se a resposta foi bem-sucedida
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var responseAux = await response.Content.ReadAsStringAsync();
-            // Verifica se a resposta contém false no success
-            var result = JsonSerializer.Deserialize<CustomResponse?>((await response.Content.ReadAsStringAsync()));
-            Assert.True(result.success);
+            var createdUser = await response.Content.ReadFromJsonAsync<dynamic>();
 
-            Assert.IsType<bool>(result.success);
+            // validar retorno true
+            createdUser.success.Should().BeTrue();
 
-            //verifica se data está null
-            Assert.NotNull(result.data);
+            //validar email no retorno igual ao cadastrado.
+            createdUser.data.Should().Be("leandroserra@testeintegracao.com");
 
-            //verificar se tem erros de notificação
 
-            Assert.Null(result.errors);
+            
         }
     }
 }

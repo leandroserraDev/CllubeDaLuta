@@ -1,5 +1,6 @@
 ﻿using EncontroDeLutadores.API.Response;
 using EncontroDeLutadores.Testes.API.Integracao.Configuracoes;
+using EncontroDeLutadores.Testes.API.Integracao.Factor;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NuGet.Frameworks;
 using System;
@@ -15,11 +16,9 @@ namespace EncontroDeLutadores.Testes.API.Integracao.Login
 {
     public class LoginTests : IntegrationTestBase
     {
-        public LoginTests(WebApplicationFactory<Program> factory) : base(factory)
+        public LoginTests(GenericAPIFactory genericApiFactory) : base(genericApiFactory)
         {
         }
-
-
 
         [Fact]
         public async Task Login_with_user_invalid_credentials()
